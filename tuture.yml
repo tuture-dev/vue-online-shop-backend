@@ -1,0 +1,71 @@
+name: 使用 Vue.js 和 Node.js 实现一个迷你淘宝(二)
+topics:
+  - JavaScript
+  - Node
+  - Vue
+  - MongoDB
+id: e227166c34ff7d8e226c0c79c6780f53
+steps:
+  - name: 快速开始
+    commit: 7c749c5
+    diff:
+      - file: .gitignore
+      - file: app.js
+        display: true
+      - file: bin/www
+        display: true
+      - file: package-lock.json
+      - file: package.json
+        display: true
+      - file: public/stylesheets/style.css
+        display: true
+      - file: routes/index.js
+        display: true
+      - file: routes/users.js
+        display: true
+      - file: views/error.ejs
+        display: true
+      - file: views/index.ejs
+        display: true
+  - name: 接入 MongoDB 数据库
+    commit: e5edda0
+    diff:
+      - file: app.js
+        display: true
+      - file: package-lock.json
+      - file: package.json
+        display: true
+  - name: 允许资源跨域访问
+    commit: 2014dde
+    diff:
+      - file: app.js
+        display: true
+  - name: 设计数据库的 Schemas 和 Models
+    commit: 02de67f
+    diff:
+      - file: model/index.js
+        display: true
+  - name: 完成 API 路由
+    commit: 3ea4693
+    diff:
+      - file: app.js
+        display: true
+      - file: controllers/manufacturer.js
+        display: true
+      - file: controllers/product.js
+        display: true
+      - file: routes/api/index.js
+        display: true
+    outdated: true
+  - name: 完成 API 路由
+    commit: 95e9a4b
+    diff:
+      - file: .gitignore
+      - file: app.js
+        display: true
+      - file: controllers/manufacturer.js
+        display: true
+      - file: controllers/product.js
+        display: true
+      - file: routes/api/index.js
+        display: true
