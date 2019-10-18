@@ -1,10 +1,10 @@
-name: 使用 Vue.js 和 Node.js 实现一个迷你淘宝(二)
+name: 使用 Vue 和 Node 开发一个迷你淘宝(二)
 topics:
   - JavaScript
   - Node
   - Vue
   - MongoDB
-id: e227166c34ff7d8e226c0c79c6780f53
+id: e15bc28cc07fd1a0ccf4b07af7af6d66
 steps:
   - name: 快速开始
     commit: 7c749c5
@@ -45,18 +45,6 @@ steps:
     diff:
       - file: model/index.js
         display: true
-  - name: 完成 API 路由
-    commit: 3ea4693
-    diff:
-      - file: app.js
-        display: true
-      - file: controllers/manufacturer.js
-        display: true
-      - file: controllers/product.js
-        display: true
-      - file: routes/api/index.js
-        display: true
-    outdated: true
   - name: 完成 API 路由
     commit: 95e9a4b
     diff:
