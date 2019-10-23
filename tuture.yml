@@ -5,6 +5,9 @@ topics:
   - Vue
   - MongoDB
 id: e15bc28cc07fd1a0ccf4b07af7af6d66
+github: "https://github.com/pftom/vue-online-shop-backend"
+created: 2019-10-21T00:00:00.509Z
+updated: 2019-10-23T08:52:55.509Z
 steps:
   - name: 快速开始
     commit: 7c749c5
