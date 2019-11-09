@@ -3,3 +3,5 @@
 
 .tuture
 tuture-error.log
+tuture-build/**
+.DS_Store
