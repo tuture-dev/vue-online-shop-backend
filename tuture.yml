@@ -1,11 +1,9 @@
 name: 使用 Vue 和 Node 开发一个迷你淘宝(二)
 topics:
-  - JavaScript
   - Node
-  - Vue
   - MongoDB
 id: e15bc28cc07fd1a0ccf4b07af7af6d66
-github: 'https://github.com/pftom/vue-online-shop-backend'
+github: "https://github.com/pftom/vue-online-shop-backend"
 categories:
   - 后端
   - Node.js
