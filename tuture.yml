@@ -1,15 +1,15 @@
-name: 使用 Vue 和 Node 开发一个迷你淘宝(二)
+name: 从零到部署：用 Vue 和 Express 实现迷你全栈电商应用（二）
 topics:
   - Express
   - MongoDB
 id: cb08dc8
-github: "https://github.com/pftom/vue-online-shop-backend"
+github: 'https://github.com/pftom/vue-online-shop-backend'
 categories:
   - 后端
   - Node.js
   - 入门
-created: 2019-10-21T00:00:00.509Z
-updated: 2019-10-23T08:52:55.509Z
+created: '2019-10-21T00:00:00.509Z'
+updated: 2019-12-22T15:59:58.306Z
 steps:
   - name: 快速开始
     commit: 7c749c5
@@ -18,20 +18,13 @@ steps:
       - file: app.js
         display: true
         explain:
-          pre: "## 初探初始化代码\n\n通过 \_express-generator 初始化的项目代码中，我们在整个教程中只需要了解下面四个文件：\n\n- `app.js`\n- `bin/www`\n- `routes/index.js`\n- `views/index.ejs`\n\nexpress 主要三个部分：\n\n- 路由：routes\n- 中间件：middlewares\n- 模板引擎：template engine\n\n因为我们是前后端分离的项目，所以这里我们并不需要模板引擎。\n\n> 什么是前后端分离？就是后端只提供和处理数据，不渲染前端代码。\n\n我们先来看一下 `app.js` 如下："
-          post: "开头是一堆导包，然后通过调用 `express()` 初始化 express 实例，接着我们设置了模板引擎为 `ejs`，以及模板引擎的存放目录，然后就是一系列中间件的加载使用，最后导出 express 实例，丢给我们的 \_`bin/www` 进行调用并启动服务器。\n\n这里我们可以看到，我们导入的两个路由 `index` 和 `users`，也和其他中间件一样被处理，所以在 express 中 “一切皆中间件”。"
+          pre: "### 初探脚手架代码\n\n通过 \_express-generator 初始化的项目代码中，我们在整个教程中只需要了解下面四个文件：\n\n- `app.js`：Express 应用主文件\n- `bin/www`：用来开启服务器的脚本\n- `routes/index.js`：路由主文件\n- `views/index.ejs`：主页的模板文件，这里由于我们只打算实现 API 数据接口，所以不用关心\n\n与之前的 [Express 教程](https://tuture.co/2019/11/26/cd5b993/)不同的是，脚手架代码并没有把所有的路由都放在 `app.js` 中，而是根据不同的子应用（users、index）进行了拆分，这也与该系列[第一篇教程](https://tuture.co/2019/10/17/0b662ce/)中 vue-router 的嵌套路由不谋而合。\n\n我们大致地看一下 `app.js` 和 `routes/index.js` 的内容，快速过一遍 Express 的基础知识。首先来看一下 `app.js` 的代码："
+          post: "开头是导入相关依赖，然后通过调用 `express()` 初始化 express 实例，接着我们设置了模板引擎为 `ejs`，以及模板引擎的存放目录，然后就是一系列中间件的加载使用，最后导出 express 实例，丢给 \_`bin/www` 脚本进行调用并启动服务器。\n\n\n::: info\n**提示**\n\n这里我们可以看到，我们导入的两个路由 `index` 和 `users`，也和其他中间件一样被处理，所以在 Express 中 “一切皆中间件”。\n:::"
       - file: bin/www
-        display: true
+        display: false
         explain:
-          pre: >-
-            再来看一下 `bin/www` ，这个文件就是我们的 express 入口文件，在这个文件里导入了 express 实例
-            `app`，然后创建 Node.js 开发服务器，并监听端口，如果没有特殊指导，那么将监听 `3000`
-            端口，这也就是为什么我们在开头浏览器里面打开 `http://localhost:3000/` 的原因。
-          post: >-
-            我们的 `app.js` 和 `bin/www` 文件里面还要很多其他代码，这里我们没有仔细去探究，因为我们的教程着重讲解 Vue
-            的知识点，而我们的后端完全是为了服务于如何探求 Vue 与后端交互，所以这里只讲解如何搭建一个 API 服务器，不了解这些 “样板”
-            代码其实对于搭建我们的 API 服务器没有太大的影响，具体学习我们后面会出一个以讲解 Node & Express
-            基础为核心的教程，敬请期待！
+          pre: ''
+          post: ''
       - file: package-lock.json
       - file: package.json
         display: false
@@ -43,61 +36,56 @@ steps:
           pre: >-
             让我们再来看一看我们的路由部分 `routes/index.js`，路由是我们 API
             服务器的核心，我们对数据进行增删改查都需要访问特定的路由接口，我们在整个教程中几乎都是围绕路由的操作。
-          post: "上面的代码，首先导入 `express`，然后使用其属性方法生成了一个 \_`router` 实例，接着定义了 `get` 这一 HTTP 方法来处理以 `GET` 方法访问我们服务器地址为 `/` 时如何进行处理。\n\n我们的 API 服务器实际上就是通过 HTTP 的各种方法（POST、DELETE、PUT、GET 等）访问我们定义的路由，进而对数据库进行相应的增删改查操作以获取我们期望的数据。\n\n这里 `express-generator` 脚手架为我们生成的代码中单纯的渲染了我们的 `index.ejs` 模板，并给模板引擎传入了 `title` 为 `Express` 的参数。\n\n最后导出我们的 `index` 路由。"
+          post: "上面的代码，首先导入 `express`，然后使用其属性方法生成了一个 \_`router` 实例，接着定义了 `get` 这一 HTTP 方法来处理以 `GET` 方法访问我们服务器地址为 `/` 时如何进行处理，最后导出我们的 `index` 路由。\n\n我们的 API 服务器实际上就是通过 HTTP 的各种方法（POST、DELETE、PUT、GET 等）访问我们定义的路由，进而对数据库进行相应的增删改查操作以获取我们期望的数据。"
       - file: routes/users.js
         display: false
       - file: views/error.ejs
         display: false
       - file: views/index.ejs
-        display: true
+        display: false
         explain:
           pre: >-
             最后是我们的 `index.ejs` ，这个就是我们访问 `index` 路由时渲染的模板，`title` 就是我们上面传入的
             `"Express"` 字符串 。
     explain:
       pre: >-
-        我们在现实生活中所用到的一些网站、App，它们会将我们的数据进行保存，当我们关闭这些网站或者 App
-        之后，下次打开还能看到我们之前的一些文字、视频记录。
+        我们在平时所用到的一些网站、App，它们会将我们的数据进行保存，当我们关闭这些网站或者 App
+        后，下次打开还能看到我们之前的一些文字、视频记录。在迷你全栈电商应用实战系列的第二篇教程中，我们将通过基于 Node.js 平台的
+        [Express](http://expressjs.com) 框架实现后端 API 数据接口，并且将数据存储在
+        [MongoDB](https://mongodb.com/)
+        中。这样我们的网站就能够记录用户添加的商品，并且无论以后什么时候打开，都能获取我们之前的记录。
 
 
-        想要完成上面这些现实生活中应用的功能仅仅有我们在第一节中学到的知识是不够，为了让我们的迷你淘宝能够记录我们添加的商品，并且无论以后什么时候打开，都能获取我们之前的记录，我们需要
-        Vue 应用与后端进行交互。
+        迷你全栈电商应用实战系列的全部教程如下：
 
 
-        接下来我将手把手带大家实现一个基于 Node 的 Express API后台应用。
+        1. [**第一部分**](https://tuture.co/2019/10/17/0b662ce/)：用 Vue
+        搭建前端项目的骨架，实现基于嵌套、动态路由的多页面跳转。
+
+        2. **第二部分**（也就是这篇）：用 Express 实现后端 REST API，并使用 MongoDB 进行数据存储。
+
+        3. **第三部分**（✍写作中）：通过 Vue 的双向数据绑定和模板语法实现数据获取与修改，并用 Vuex 实现前端的状态管理。
+
+        4. **第四部分**（✍写作中）：用 Element UI 组件库让界面更加专业美观，并且用 Docker 和 Docker Compose
+        部署我们的全栈项目。
 
 
-        ## 安装依赖
+        ::: info
+
+        **提示**
 
 
-        安装 Node.js，你可以去 [Node.js](https://nodejs.org/en/) 官网下载安装包，Node.js
-        是跨平台的，所以不用担心你的电脑无法使用。
+        阅读这篇文章需要你对 Express
+        框架有一定的了解。如果不熟悉的话，可以阅读[这篇教程](https://tuture.co/2019/11/26/cd5b993/)快速上手哦。
+
+        :::
 
 
-        通过 Node.js 安装包安装，会同时安装 Node.js 包管理工具 Npm，用于便捷的管理项目依赖和下载第三方包。
+        ### 初始化项目
 
 
-        打开终端，输入如下命令测试是否安装成功：
-
-
-        ```Bash
-
-        node -v # v10.16.0
-
-        npm -v # 6.9.0
-
-        ```
-
-
-        如果在你的终端有如上输出，那么代表你安装成功。
-
-
-        > 提示：通过上面安装包安装，你会安装最新的 Node 稳定版本，这可能和我的机器上的 Node
-        版本不一致，但是不用担心，本教程使用到的代码语法适用于绝大多数新的或更老的 Node。
-
-
-        安装 express，在绝大多数场景下，我们使用 express-generator 来初始化我们的 express
-        项目，本教程也不例外，在终端运行如下命令来安装：
+        首先，让我们使用 [express-generator](https://github.com/expressjs/generator)
+        脚手架来初始化我们的 Express 项目。在终端运行如下命令来安装：
 
 
         ```bash
@@ -110,7 +98,6 @@ steps:
         打开终端，输入如下命令测试是否安装成功：
 
 
-
         ```Bash
 
         express --version # 4.15.5
@@ -118,22 +105,12 @@ steps:
         ```
 
 
-        上面两个安装步骤已经足够完成我们的教程的学习，但是我想额外推荐你一款编辑器，VSCode，你可以通过访问
-        [VSCode](https://code.visualstudio.com/) 官网安装。
-
-
-        VSCode 是一款非常优秀的开源编辑器，对 Node.js 开发者非常友好，相信你用了它就会爱不释手。
-
-
-        ## 初始化项目
-
-
-        打开终端输入如下命令初始化我们的 Express 项目：
+        然后输入如下命令初始化我们的 Express 项目：
 
 
         ```bash
 
-        express --view=pug vue-online-shop-backend
+        express vue-online-shop-backend
 
         ```
 
@@ -142,8 +119,6 @@ steps:
 
 
         ```Bash
-
-        # code vue-online-shop-backend # 如果你使用了 VSCode 编辑器，可以用这行命令打开项目
 
         cd vue-online-shop-backend
 
@@ -159,47 +134,32 @@ steps:
 
         ![Exprees Hello World](tuture-assets/f6399092aa34edf6f8e6140f404edcab)
       post: |-
+        ### 小结
+
         通过简单的讲解 `express-generator` 脚手架为我们生成的上面四个文件，我们学到了如下知识：
 
         - 在 Express 中，一切皆中间件（Middlewares），我们通过组合中间件来处理复制的后端逻辑。
         - 我们的 API 服务器实际上就是通过定义一系列路由，当以不同的 HTTP 方法访问这些路由接口时，对数据进行对应的增删改查操作。
-        - 虽然 Express 也可以渲染模板引擎，展示 HTML 内容，但是我们的 API 服务器不需要用到它，我们的前端交给了 Vue 来做。
+        - 虽然 Express 也可以通过模板引擎展示用户界面，但是由于我们的迷你电商应用的前端已经用 Vue 来实现了，所以不需要模板引擎。
   - name: 接入 MongoDB 数据库
     commit: e5edda0
     diff:
       - file: package.json
-        display: true
+        display: false
         explain:
-          pre: >-
-            然后我们安装 Mongoose 这个 npm 包：
-
-
-            ```Bash
-
-            $ npm install mongoose
-
-            ```
-
-
-            Mongoose 是 MongoDB 最流行的 ODM（Object Document
-            Mapping，对象文档映射），使用起来要比底层的 MongoDB Node 驱动更方便。
+          pre: ''
       - file: app.js
         display: true
         explain:
           pre: >-
             接着我们在我们的 `app.js` 文件中导入 `mongoose` ，并且通过 `mongoose` 提供的接口连接我们的
-            MongoDB 数据库
+            MongoDB 数据库：
       - file: package-lock.json
     explain:
       pre: >-
-        在我们的[第一篇教程](https://tuture.co/hub/2019/10/22/%E4%BD%BF%E7%94%A8%20Vue%20%E5%92%8C%20Node%20%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E8%BF%B7%E4%BD%A0%E6%B7%98%E5%AE%9D(%E4%B8%80)/)中，我们在前端硬编码了一些假数据，虽然这使得我们每次打开我们的
-        Vue 应用可以一样的效果，但是当我们对数据做出了修改，并在下一次打开时，会发现，我们的网站像“失忆”了一样。
-
-
         解决数据持久化存储最流行的方案无疑是数据库，而 MongoDB
         凭借其优异的性能、可扩展性和灵活的数据模式，从众多数据库产品中脱颖而出。并且，MongoDB 的核心功能是基于 BSON（Binary
-        JSON）实现的，甚至提供了 JavaScript Shell，因此在 Node 社区更是深受欢迎。所以，我们也将利用 MongoDB 实现
-        Instagrammy 的数据持久化存储。MongoDB
+        JSON）实现的，甚至提供了 JavaScript Shell，因此在 Node 社区更是深受欢迎。MongoDB
         可以从其[官网](https://www.mongodb.com/download-center/community)上下载。下载并安装好之后，新打开一个终端（命令控制台），运行以下命令打开数据库（Windows
         用户可以搜索 mongo.exe 并打开）：
 
@@ -208,9 +168,35 @@ steps:
 
         $ mongod
 
+        2019-12-22T18:10:25.285+0800 I CONTROL  [initandlisten] MongoDB starting
+        : pid=14475 port=27017 dbpath=/data/db 64-bit host=mRc
+
+        2019-12-22T18:10:25.285+0800 I CONTROL  [initandlisten] db version
+        v3.6.0
+
+        2019-12-22T18:10:25.285+0800 I CONTROL  [initandlisten] git version:
+        a57d8e71e6998a2d0afde7edc11bd23e5661c915
+
+        ...
+
         ```
+
+
+        开启 `mongod` 后会输出很多日志信息，并且可以通过 `localhost:27017` 进行访问。然后回到我们之前开启的终端，安装
+        Mongoose 这个 npm 包：
+
+
+        ```Bash
+
+        $ npm install mongoose
+
+        ```
+
+
+        Mongoose 是 MongoDB 最流行的 ODM（Object Document Mapping，对象文档映射），使用起来要比底层的
+        MongoDB Node 驱动更方便。
       post: >-
-        接着我们的终端中切换到此项目根目录下，通过 `npm start` 运行我们的服务器，我们就在 Express 中连接上了我们的 MongoDB
+        接着我们通过 `npm start` 运行服务器，我们就在 Express 中连接上了我们的 MongoDB
         数据库，虽然现在还看不到任何效果，我们马上会编写路由来操作数据库来测试连接的有效性。
   - name: 允许资源跨域访问
     commit: 2014dde
@@ -220,17 +206,16 @@ steps:
         explain:
           pre: 我们打开 `app.js` 文件，添加如下代码：
           post: >-
-            CORS （Cross-Origin Resources
-            Sharing）是用来限制此域名下的资源访问解决方案，当它关闭时，另外一个域名访问此域名的资源时会被拒绝。如果想详细了解什么是
-            CORS，这里推荐一篇[阮一峰](http://www.ruanyifeng.com/blog/2016/04/cors.html)的文章，里面很细致的讲解了
-            CORS 的原理。
-
-
             通常意义上，上面的代码存在很多问题，我们一般意义上会使用
             [NPM](https://www.npmjs.com/package/cors) 包 `cors`
             来解决，当然我们这里使用了比较简单粗暴的方式。
     explain:
-      pre: 接着我们要做一点额外的操作，尽管它看起来和我们的项目没什么关联性，但是确是一个必要的一环，那就是开启 CORS。
+      pre: >-
+        接着我们要做一点额外的操作，尽管它看起来和我们的项目没什么关联性，但是确是一个必要的一环，那就是开启资源跨域访问 CORS
+        （Cross-Origin Resources Sharing）。CORS
+        是用来限制此域名下的资源访问解决方案，当它关闭时，另外一个域名访问此域名的资源时会被拒绝。如果想详细了解什么是
+        CORS，这里推荐一篇[阮一峰](http://www.ruanyifeng.com/blog/2016/04/cors.html)的文章，里面很细致的讲解了
+        CORS 的原理。
   - name: 设计数据库的 Schemas 和 Models
     commit: 02de67f
     diff:
@@ -250,7 +235,7 @@ steps:
 
 
             接着我们通过 `model` 来创建对于的数据模型，然后导出我们创建好的数据模型。这里的 `model` 就是经典的 MVC
-            设计模式中的 **Model**
+            设计模式中的 **Model**。
     explain:
       pre: >-
         我们要在服务器中通过 mongoose 与 MongoDB 数据库进行交互，需要定义 `Schema` 和  `Model`。通过定义它们来告诉
@@ -264,7 +249,7 @@ steps:
         explain:
           pre: 打开 `app.js` 文件，加入如下代码：
           post: >-
-            可以看到，我们导出了 `api` 路由，并定义了访问路径 `/api/v1`。所有访问 `/api/v1` 及其子路径如
+            可以看到，我们导入了 `api` 路由，并定义了访问路径 `/api/v1`。所有访问 `/api/v1` 及其子路径如
             `/api/v1/xxx` 都会激活 `api` 处理函数，在经典的 MVC 设计模式中，`api`  也被成为
             **Controllers** 。
       - file: routes/api/index.js
@@ -335,7 +320,7 @@ steps:
         编写完上面的代码并保存，打开终端输入 `npm start` 来开启我们的服务器。
 
 
-        因为我们的服务器在开启时要链接 MongoDB 数据库，所以要确保本地的 MongoDB 数据库已经开启，我们可以通过如下命令来开启：
+        因为我们的服务器在开启时要连接 MongoDB 数据库，所以要确保本地的 MongoDB 数据库已经开启，我们可以通过如下命令来开启：
 
 
         ```Bash
@@ -388,7 +373,7 @@ steps:
 
 
         可以看到我们添加了 `manufacturer` 为 `5da72eaac6ccea32f823c247` 的小米制造商的新手机 `"Mix
-        Alpha"`
+        Alpha"`。
 
 
         ### 小结
