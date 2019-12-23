@@ -4,6 +4,7 @@ topics:
   - MongoDB
 id: cb08dc8
 github: 'https://github.com/pftom/vue-online-shop-backend'
+cover: tuture-assets/express2.png
 categories:
   - 后端
   - Node.js
