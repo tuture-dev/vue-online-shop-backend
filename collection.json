@@ -1,0 +1,3447 @@
+{
+  "name": "从零到部署：用 Vue 和 Express 实现迷你全栈电商应用（二）",
+  "description": "这是本教程的第二个部分，使用 Node.js 的 Express 路由框架来编写我们迷你淘宝的 API 后台部分，在这个教程中，你将学到一个基础的 Web 后台 API 应用如何搭建，包括中间件、路由等，如何通过 Node.js 数据库接口包操作 MongoDB 数据库，并且通过 Postman 来测试我们写好的 API。",
+  "id": "cb08dc8",
+  "cover": ".tuture/assets/express2.png",
+  "created": "2019-10-21T00:00:00.509Z",
+  "topics": [
+    "Express",
+    "MongoDB"
+  ],
+  "categories": [
+    "后端",
+    "Node.js",
+    "入门"
+  ],
+  "articles": [
+    {
+      "name": "从零到部署：用 Vue 和 Express 实现迷你全栈电商应用（二）",
+      "description": "这是本教程的第二个部分，使用 Node.js 的 Express 路由框架来编写我们迷你淘宝的 API 后台部分，在这个教程中，你将学到一个基础的 Web 后台 API 应用如何搭建，包括中间件、路由等，如何通过 Node.js 数据库接口包操作 MongoDB 数据库，并且通过 Postman 来测试我们写好的 API。",
+      "id": "cb08dc8",
+      "created": "2019-10-21T00:00:00.509Z",
+      "topics": [
+        "Express",
+        "MongoDB"
+      ],
+      "categories": [
+        "后端",
+        "Node.js",
+        "入门"
+      ],
+      "cover": ".tuture/assets/express2.png"
+    }
+  ],
+  "steps": [
+    {
+      "type": "step",
+      "commit": "7c749c5",
+      "id": "lbPtSPaf",
+      "articleId": "cb08dc8",
+      "children": [
+        {
+          "type": "heading-two",
+          "commit": "7c749c5",
+          "id": "d20WkMKuG",
+          "fixed": true,
+          "children": [
+            {
+              "text": "快速开始"
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "我们在平时所用到的一些网站、App，它们会将我们的数据进行保存，当我们关闭这些网站或者 App 后，下次打开还能看到我们之前的一些文字、视频记录。在迷你全栈电商应用实战系列的第二篇教程中，我们将通过基于 Node.js 平台的 "
+                },
+                {
+                  "link": true,
+                  "url": "http://expressjs.com",
+                  "text": "Express"
+                },
+                {
+                  "text": " 框架实现后端 API 数据接口，并且将数据存储在 "
+                },
+                {
+                  "link": true,
+                  "url": "https://mongodb.com/",
+                  "text": "MongoDB"
+                },
+                {
+                  "text": " 中。这样我们的网站就能够记录用户添加的商品，并且无论以后什么时候打开，都能获取我们之前的记录。"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "迷你全栈电商应用实战系列的全部教程如下："
+                }
+              ]
+            },
+            {
+              "type": "numbered-list",
+              "children": [
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "link": true,
+                      "url": "https://tuture.co/2019/10/17/0b662ce/",
+                      "bold": true,
+                      "text": "第一部分"
+                    },
+                    {
+                      "text": "：用 Vue 搭建前端项目的骨架，实现基于嵌套、动态路由的多页面跳转。"
+                    }
+                  ],
+                  "parent": "numbered-list",
+                  "level": 0,
+                  "number": 1
+                },
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "bold": true,
+                      "text": "第二部分"
+                    },
+                    {
+                      "text": "（也就是这篇）：用 Express 实现后端 REST API，并使用 MongoDB 进行数据存储。"
+                    }
+                  ],
+                  "parent": "numbered-list",
+                  "level": 0,
+                  "number": 2
+                },
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "bold": true,
+                      "text": "第三部分"
+                    },
+                    {
+                      "text": "（✍写作中）：通过 Vue 的双向数据绑定和模板语法实现数据获取与修改，并用 Vuex 实现前端的状态管理。"
+                    }
+                  ],
+                  "parent": "numbered-list",
+                  "level": 0,
+                  "number": 3
+                },
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "bold": true,
+                      "text": "第四部分"
+                    },
+                    {
+                      "text": "（✍写作中）：用 Element UI 组件库让界面更加专业美观，并且用 Docker 和 Docker Compose 部署我们的全栈项目。"
+                    }
+                  ],
+                  "parent": "numbered-list",
+                  "level": 0,
+                  "number": 4
+                }
+              ]
+            },
+            {
+              "type": "note",
+              "level": "info",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "阅读这篇文章需要你对 Express 框架有一定的了解。如果不熟悉的话，可以阅读"
+                    },
+                    {
+                      "link": true,
+                      "url": "https://tuture.co/2019/11/26/cd5b993/",
+                      "text": "这篇教程"
+                    },
+                    {
+                      "text": "快速上手哦。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "heading-three",
+              "children": [
+                {
+                  "text": "初始化项目"
+                }
+              ],
+              "id": "tGBjWyvMR"
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "首先，让我们使用 "
+                },
+                {
+                  "link": true,
+                  "url": "https://github.com/expressjs/generator",
+                  "text": "express-generator"
+                },
+                {
+                  "text": " 脚手架来初始化我们的 Express 项目。在终端运行如下命令来安装："
+                }
+              ]
+            },
+            {
+              "type": "code-block",
+              "lang": "bash",
+              "children": [
+                {
+                  "type": "code-line",
+                  "children": [
+                    {
+                      "text": "npm install -g express-generator"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "打开终端，输入如下命令测试是否安装成功："
+                }
+              ]
+            },
+            {
+              "type": "code-block",
+              "lang": "Bash",
+              "children": [
+                {
+                  "type": "code-line",
+                  "children": [
+                    {
+                      "text": "express --version # 4.15.5"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "然后输入如下命令初始化我们的 Express 项目："
+                }
+              ]
+            },
+            {
+              "type": "code-block",
+              "lang": "bash",
+              "children": [
+                {
+                  "type": "code-line",
+                  "children": [
+                    {
+                      "text": "express vue-online-shop-backend"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "当项目初始化成功之后，接下来通过如下命令开启项目："
+                }
+              ]
+            },
+            {
+              "type": "code-block",
+              "lang": "Bash",
+              "children": [
+                {
+                  "type": "code-line",
+                  "children": [
+                    {
+                      "text": "cd vue-online-shop-backend"
+                    }
+                  ]
+                },
+                {
+                  "type": "code-line",
+                  "children": [
+                    {
+                      "text": "npm install"
+                    }
+                  ]
+                },
+                {
+                  "type": "code-line",
+                  "children": [
+                    {
+                      "text": "npm start"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "接着打开浏览器，输入 "
+                },
+                {
+                  "code": true,
+                  "text": "http://localhost:3000/"
+                },
+                {
+                  "text": " 查看我们初始好的项目效果。"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "image",
+                  "url": ".tuture/assets/f6399092aa34edf6f8e6140f404edcab",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "file",
+          "file": ".gitignore",
+          "id": "n0ncT8E7b",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": ".gitignore",
+              "commit": "7c749c5",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "file",
+          "file": "app.js",
+          "display": true,
+          "id": "ek1xsVk7Y",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "heading-three",
+                  "children": [
+                    {
+                      "text": "初探脚手架代码"
+                    }
+                  ],
+                  "id": "i8c71wG-F"
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "通过  express-generator 初始化的项目代码中，我们在整个教程中只需要了解下面四个文件："
+                    }
+                  ]
+                },
+                {
+                  "type": "bulleted-list",
+                  "children": [
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "code": true,
+                          "text": "app.js"
+                        },
+                        {
+                          "text": "：Express 应用主文件"
+                        }
+                      ],
+                      "parent": "bulleted-list",
+                      "level": 0
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "code": true,
+                          "text": "bin/www"
+                        },
+                        {
+                          "text": "：用来开启服务器的脚本"
+                        }
+                      ],
+                      "parent": "bulleted-list",
+                      "level": 0
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "code": true,
+                          "text": "routes/index.js"
+                        },
+                        {
+                          "text": "：路由主文件"
+                        }
+                      ],
+                      "parent": "bulleted-list",
+                      "level": 0
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "code": true,
+                          "text": "views/index.ejs"
+                        },
+                        {
+                          "text": "：主页的模板文件，这里由于我们只打算实现 API 数据接口，所以不用关心"
+                        }
+                      ],
+                      "parent": "bulleted-list",
+                      "level": 0
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "与之前的 "
+                    },
+                    {
+                      "link": true,
+                      "url": "https://tuture.co/2019/11/26/cd5b993/",
+                      "text": "Express 教程"
+                    },
+                    {
+                      "text": "不同的是，脚手架代码并没有把所有的路由都放在 "
+                    },
+                    {
+                      "code": true,
+                      "text": "app.js"
+                    },
+                    {
+                      "text": " 中，而是根据不同的子应用（users、index）进行了拆分，这也与该系列"
+                    },
+                    {
+                      "link": true,
+                      "url": "https://tuture.co/2019/10/17/0b662ce/",
+                      "text": "第一篇教程"
+                    },
+                    {
+                      "text": "中 vue-router 的嵌套路由不谋而合。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "我们大致地看一下 "
+                    },
+                    {
+                      "code": true,
+                      "text": "app.js"
+                    },
+                    {
+                      "text": " 和 "
+                    },
+                    {
+                      "code": true,
+                      "text": "routes/index.js"
+                    },
+                    {
+                      "text": " 的内容，快速过一遍 Express 的基础知识。首先来看一下 "
+                    },
+                    {
+                      "code": true,
+                      "text": "app.js"
+                    },
+                    {
+                      "text": " 的代码："
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "app.js",
+              "commit": "7c749c5",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "开头是导入相关依赖，然后通过调用 "
+                    },
+                    {
+                      "code": true,
+                      "text": "express()"
+                    },
+                    {
+                      "text": " 初始化 express 实例，接着我们设置了模板引擎为 "
+                    },
+                    {
+                      "code": true,
+                      "text": "ejs"
+                    },
+                    {
+                      "text": "，以及模板引擎的存放目录，然后就是一系列中间件的加载使用，最后导出 express 实例，丢给  "
+                    },
+                    {
+                      "code": true,
+                      "text": "bin/www"
+                    },
+                    {
+                      "text": " 脚本进行调用并启动服务器。"
+                    }
+                  ]
+                },
+                {
+                  "type": "note",
+                  "level": "info",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "children": [
+                        {
+                          "text": "这里我们可以看到，我们导入的两个路由 "
+                        },
+                        {
+                          "code": true,
+                          "text": "index"
+                        },
+                        {
+                          "text": " 和 "
+                        },
+                        {
+                          "code": true,
+                          "text": "users"
+                        },
+                        {
+                          "text": "，也和其他中间件一样被处理，所以在 Express 中 “一切皆中间件”。"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "file",
+          "file": "bin/www",
+          "display": false,
+          "id": "2mNI47ED_",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "bin/www",
+              "commit": "7c749c5",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "file",
+          "file": "package-lock.json",
+          "id": "54twaXQC-",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "package-lock.json",
+              "commit": "7c749c5",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "file",
+          "file": "package.json",
+          "display": false,
+          "id": "P0e_1uyEg",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "package.json",
+              "commit": "7c749c5",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "file",
+          "file": "public/stylesheets/style.css",
+          "display": false,
+          "id": "i_xu4KxIQ",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "public/stylesheets/style.css",
+              "commit": "7c749c5",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "file",
+          "file": "routes/index.js",
+          "display": true,
+          "id": "5o8WVoMfe",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "让我们再来看一看我们的路由部分 "
+                    },
+                    {
+                      "code": true,
+                      "text": "routes/index.js"
+                    },
+                    {
+                      "text": "，路由是我们 API 服务器的核心，我们对数据进行增删改查都需要访问特定的路由接口，我们在整个教程中几乎都是围绕路由的操作。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "routes/index.js",
+              "commit": "7c749c5",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "上面的代码，首先导入 "
+                    },
+                    {
+                      "code": true,
+                      "text": "express"
+                    },
+                    {
+                      "text": "，然后使用其属性方法生成了一个  "
+                    },
+                    {
+                      "code": true,
+                      "text": "router"
+                    },
+                    {
+                      "text": " 实例，接着定义了 "
+                    },
+                    {
+                      "code": true,
+                      "text": "get"
+                    },
+                    {
+                      "text": " 这一 HTTP 方法来处理以 "
+                    },
+                    {
+                      "code": true,
+                      "text": "GET"
+                    },
+                    {
+                      "text": " 方法访问我们服务器地址为 "
+                    },
+                    {
+                      "code": true,
+                      "text": "/"
+                    },
+                    {
+                      "text": " 时如何进行处理，最后导出我们的 "
+                    },
+                    {
+                      "code": true,
+                      "text": "index"
+                    },
+                    {
+                      "text": " 路由。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "我们的 API 服务器实际上就是通过 HTTP 的各种方法（POST、DELETE、PUT、GET 等）访问我们定义的路由，进而对数据库进行相应的增删改查操作以获取我们期望的数据。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "file",
+          "file": "routes/users.js",
+          "display": false,
+          "id": "XzaM70Tbk",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "routes/users.js",
+              "commit": "7c749c5",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "file",
+          "file": "views/error.ejs",
+          "display": false,
+          "id": "vKU0QLCXO",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "views/error.ejs",
+              "commit": "7c749c5",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "file",
+          "file": "views/index.ejs",
+          "display": false,
+          "id": "FtyAFuQT1",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "最后是我们的 "
+                    },
+                    {
+                      "code": true,
+                      "text": "index.ejs"
+                    },
+                    {
+                      "text": " ，这个就是我们访问 "
+                    },
+                    {
+                      "code": true,
+                      "text": "index"
+                    },
+                    {
+                      "text": " 路由时渲染的模板，"
+                    },
+                    {
+                      "code": true,
+                      "text": "title"
+                    },
+                    {
+                      "text": " 就是我们上面传入的 "
+                    },
+                    {
+                      "code": true,
+                      "text": "\"Express\""
+                    },
+                    {
+                      "text": " 字符串 。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "views/index.ejs",
+              "commit": "7c749c5",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "heading-three",
+              "children": [
+                {
+                  "text": "小结"
+                }
+              ],
+              "id": "UrIYPSN2H"
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "通过简单的讲解 "
+                },
+                {
+                  "code": true,
+                  "text": "express-generator"
+                },
+                {
+                  "text": " 脚手架为我们生成的上面四个文件，我们学到了如下知识："
+                }
+              ]
+            },
+            {
+              "type": "bulleted-list",
+              "children": [
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": "在 Express 中，一切皆中间件（Middlewares），我们通过组合中间件来处理复制的后端逻辑。"
+                    }
+                  ],
+                  "parent": "bulleted-list",
+                  "level": 0
+                },
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": "我们的 API 服务器实际上就是通过定义一系列路由，当以不同的 HTTP 方法访问这些路由接口时，对数据进行对应的增删改查操作。"
+                    }
+                  ],
+                  "parent": "bulleted-list",
+                  "level": 0
+                },
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": "虽然 Express 也可以通过模板引擎展示用户界面，但是由于我们的迷你电商应用的前端已经用 Vue 来实现了，所以不需要模板引擎。"
+                    }
+                  ],
+                  "parent": "bulleted-list",
+                  "level": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "step",
+      "commit": "e5edda0",
+      "id": "yOHX2kX-l",
+      "articleId": "cb08dc8",
+      "children": [
+        {
+          "type": "heading-two",
+          "commit": "e5edda0",
+          "id": "WEthsIS2gO",
+          "fixed": true,
+          "children": [
+            {
+              "text": "接入 MongoDB 数据库"
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "解决数据持久化存储最流行的方案无疑是数据库，而 MongoDB 凭借其优异的性能、可扩展性和灵活的数据模式，从众多数据库产品中脱颖而出。并且，MongoDB 的核心功能是基于 BSON（Binary JSON）实现的，甚至提供了 JavaScript Shell，因此在 Node 社区更是深受欢迎。MongoDB 可以从其"
+                },
+                {
+                  "link": true,
+                  "url": "https://www.mongodb.com/download-center/community",
+                  "text": "官网"
+                },
+                {
+                  "text": "上下载。下载并安装好之后，新打开一个终端（命令控制台），运行以下命令打开数据库（Windows 用户可以搜索 mongo.exe 并打开）："
+                }
+              ]
+            },
+            {
+              "type": "code-block",
+              "lang": "Bash",
+              "children": [
+                {
+                  "type": "code-line",
+                  "children": [
+                    {
+                      "text": "$ mongod"
+                    }
+                  ]
+                },
+                {
+                  "type": "code-line",
+                  "children": [
+                    {
+                      "text": "2019-12-22T18:10:25.285+0800 I CONTROL  [initandlisten] MongoDB starting : pid=14475 port=27017 dbpath=/data/db 64-bit host=mRc"
+                    }
+                  ]
+                },
+                {
+                  "type": "code-line",
+                  "children": [
+                    {
+                      "text": "2019-12-22T18:10:25.285+0800 I CONTROL  [initandlisten] db version v3.6.0"
+                    }
+                  ]
+                },
+                {
+                  "type": "code-line",
+                  "children": [
+                    {
+                      "text": "2019-12-22T18:10:25.285+0800 I CONTROL  [initandlisten] git version: a57d8e71e6998a2d0afde7edc11bd23e5661c915"
+                    }
+                  ]
+                },
+                {
+                  "type": "code-line",
+                  "children": [
+                    {
+                      "text": "..."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "开启 "
+                },
+                {
+                  "code": true,
+                  "text": "mongod"
+                },
+                {
+                  "text": " 后会输出很多日志信息，并且可以通过 "
+                },
+                {
+                  "code": true,
+                  "text": "localhost:27017"
+                },
+                {
+                  "text": " 进行访问。然后回到我们之前开启的终端，安装 Mongoose 这个 npm 包："
+                }
+              ]
+            },
+            {
+              "type": "code-block",
+              "lang": "Bash",
+              "children": [
+                {
+                  "type": "code-line",
+                  "children": [
+                    {
+                      "text": "$ npm install mongoose"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "Mongoose 是 MongoDB 最流行的 ODM（Object Document Mapping，对象文档映射），使用起来要比底层的 MongoDB Node 驱动更方便。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "file",
+          "file": "package.json",
+          "display": false,
+          "id": "-N6YG1YMGx",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "package.json",
+              "commit": "e5edda0",
+              "hiddenLines": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                17
+              ],
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "file",
+          "file": "app.js",
+          "display": true,
+          "id": "W6v-S49PWM",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "接着我们在我们的 "
+                    },
+                    {
+                      "code": true,
+                      "text": "app.js"
+                    },
+                    {
+                      "text": " 文件中导入 "
+                    },
+                    {
+                      "code": true,
+                      "text": "mongoose"
+                    },
+                    {
+                      "text": " ，并且通过 "
+                    },
+                    {
+                      "code": true,
+                      "text": "mongoose"
+                    },
+                    {
+                      "text": " 提供的接口连接我们的 MongoDB 数据库："
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "app.js",
+              "commit": "e5edda0",
+              "hiddenLines": [
+                10,
+                11,
+                12,
+                13,
+                25,
+                26,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32,
+                33,
+                34,
+                35,
+                36,
+                37,
+                38,
+                39,
+                40,
+                41,
+                42,
+                43,
+                44,
+                45,
+                46,
+                47,
+                48,
+                49,
+                50,
+                51
+              ],
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "file",
+          "file": "package-lock.json",
+          "id": "AW2_-5N6BX",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "package-lock.json",
+              "commit": "e5edda0",
+              "hiddenLines": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                36,
+                37,
+                38,
+                39,
+                40,
+                41,
+                42,
+                43,
+                44,
+                45,
+                46,
+                58,
+                59,
+                60,
+                61,
+                62,
+                63,
+                64,
+                65,
+                66,
+                67,
+                68,
+                69,
+                70,
+                71,
+                72,
+                73,
+                74,
+                75,
+                76,
+                77,
+                78,
+                79,
+                80,
+                81,
+                82,
+                83,
+                84,
+                85,
+                86,
+                87,
+                88,
+                89,
+                90,
+                91,
+                92,
+                93,
+                94,
+                95,
+                96,
+                97,
+                98,
+                99,
+                100,
+                101,
+                102,
+                103,
+                104,
+                105,
+                106,
+                107,
+                108,
+                109,
+                110,
+                111,
+                112,
+                113,
+                114,
+                115,
+                116,
+                117,
+                118,
+                119,
+                120,
+                121,
+                122,
+                123,
+                124,
+                125,
+                126,
+                127,
+                128,
+                129,
+                130,
+                131,
+                132,
+                133,
+                134,
+                135,
+                136,
+                137,
+                138,
+                139,
+                140,
+                141,
+                142,
+                143,
+                144,
+                145,
+                146,
+                147,
+                148,
+                149,
+                150,
+                151,
+                152,
+                153,
+                154,
+                155,
+                156,
+                157,
+                158,
+                159,
+                160,
+                161,
+                162,
+                163,
+                164,
+                165,
+                166,
+                167,
+                168,
+                169,
+                170,
+                171,
+                172,
+                173,
+                174,
+                175,
+                176,
+                177,
+                178,
+                179,
+                180,
+                181,
+                182,
+                183,
+                184,
+                185,
+                186,
+                187,
+                188,
+                189,
+                190,
+                191,
+                192,
+                193,
+                194,
+                195,
+                196,
+                197,
+                198,
+                199,
+                200,
+                201,
+                202,
+                203,
+                204,
+                205,
+                206,
+                207,
+                208,
+                209,
+                210,
+                211,
+                212,
+                213,
+                214,
+                215,
+                216,
+                217,
+                218,
+                219,
+                220,
+                221,
+                222,
+                223,
+                224,
+                225,
+                226,
+                227,
+                228,
+                229,
+                230,
+                231,
+                232,
+                233,
+                234,
+                235,
+                236,
+                237,
+                238,
+                239,
+                240,
+                252,
+                253,
+                254,
+                255,
+                256,
+                257,
+                258,
+                259,
+                260,
+                261,
+                262,
+                263,
+                264,
+                265,
+                266,
+                267,
+                268,
+                269,
+                270,
+                271,
+                272,
+                273,
+                274,
+                275,
+                276,
+                277,
+                278,
+                325,
+                326,
+                327,
+                328,
+                329,
+                330,
+                364,
+                365,
+                366,
+                367,
+                368,
+                369,
+                370,
+                371,
+                372,
+                373,
+                374,
+                375,
+                376,
+                377,
+                378,
+                379,
+                380,
+                381,
+                382,
+                383,
+                384,
+                385,
+                386,
+                387,
+                388,
+                389,
+                390,
+                391,
+                392,
+                393,
+                394,
+                395,
+                396,
+                397,
+                398,
+                399,
+                400,
+                401,
+                402,
+                403,
+                404,
+                405,
+                406,
+                407,
+                408,
+                409,
+                410,
+                411,
+                412,
+                413,
+                414,
+                415,
+                416,
+                417,
+                418,
+                419,
+                420,
+                446,
+                447,
+                448,
+                449,
+                461,
+                462,
+                463,
+                464,
+                465,
+                466,
+                467,
+                468,
+                469,
+                470,
+                471,
+                472,
+                473,
+                474,
+                475,
+                476,
+                477,
+                478,
+                479,
+                480,
+                481,
+                482,
+                483,
+                484,
+                485,
+                486,
+                487,
+                488,
+                489,
+                490,
+                491,
+                492,
+                493,
+                494,
+                495,
+                496,
+                497,
+                498,
+                499,
+                500,
+                501,
+                502,
+                503,
+                504,
+                505,
+                506,
+                507,
+                508,
+                509,
+                510,
+                511,
+                512,
+                513,
+                514,
+                515,
+                516,
+                533,
+                534,
+                535,
+                536,
+                537,
+                538,
+                539,
+                540,
+                541,
+                542,
+                543,
+                544,
+                545,
+                546,
+                547,
+                548,
+                549,
+                550,
+                551,
+                552,
+                553,
+                554,
+                555,
+                556,
+                557,
+                558,
+                559,
+                560
+              ],
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "接着我们通过 "
+                },
+                {
+                  "code": true,
+                  "text": "npm start"
+                },
+                {
+                  "text": " 运行服务器，我们就在 Express 中连接上了我们的 MongoDB 数据库，虽然现在还看不到任何效果，我们马上会编写路由来操作数据库来测试连接的有效性。"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "step",
+      "commit": "2014dde",
+      "id": "vvGTVmAKVO",
+      "articleId": "cb08dc8",
+      "children": [
+        {
+          "type": "heading-two",
+          "commit": "2014dde",
+          "id": "CPTLf90rSx",
+          "fixed": true,
+          "children": [
+            {
+              "text": "允许资源跨域访问"
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "接着我们要做一点额外的操作，尽管它看起来和我们的项目没什么关联性，但是确是一个必要的一环，那就是开启资源跨域访问 CORS （Cross-Origin Resources Sharing）。CORS 是用来限制此域名下的资源访问解决方案，当它关闭时，另外一个域名访问此域名的资源时会被拒绝。如果想详细了解什么是 CORS，这里推荐一篇"
+                },
+                {
+                  "link": true,
+                  "url": "http://www.ruanyifeng.com/blog/2016/04/cors.html",
+                  "text": "阮一峰"
+                },
+                {
+                  "text": "的文章，里面很细致的讲解了 CORS 的原理。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "file",
+          "file": "app.js",
+          "display": true,
+          "id": "gFprH4DwsW",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "我们打开 "
+                    },
+                    {
+                      "code": true,
+                      "text": "app.js"
+                    },
+                    {
+                      "text": " 文件，添加如下代码："
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "app.js",
+              "commit": "2014dde",
+              "hiddenLines": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                37,
+                38,
+                39,
+                40,
+                41,
+                42,
+                43,
+                44,
+                45,
+                46,
+                47,
+                48,
+                49,
+                50,
+                51,
+                52,
+                53,
+                54,
+                55,
+                56,
+                57,
+                58,
+                59,
+                60,
+                61,
+                62,
+                63,
+                64
+              ],
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "通常意义上，上面的代码存在很多问题，我们一般意义上会使用 "
+                    },
+                    {
+                      "link": true,
+                      "url": "https://www.npmjs.com/package/cors",
+                      "text": "NPM"
+                    },
+                    {
+                      "text": " 包 "
+                    },
+                    {
+                      "code": true,
+                      "text": "cors"
+                    },
+                    {
+                      "text": " 来解决，当然我们这里使用了比较简单粗暴的方式。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "step",
+      "commit": "02de67f",
+      "id": "A-917Np7sE",
+      "articleId": "cb08dc8",
+      "children": [
+        {
+          "type": "heading-two",
+          "commit": "02de67f",
+          "id": "tkGu7hjRwT",
+          "fixed": true,
+          "children": [
+            {
+              "text": "设计数据库的 Schemas 和 Models"
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "我们要在服务器中通过 mongoose 与 MongoDB 数据库进行交互，需要定义 "
+                },
+                {
+                  "code": true,
+                  "text": "Schema"
+                },
+                {
+                  "text": " 和  "
+                },
+                {
+                  "code": true,
+                  "text": "Model"
+                },
+                {
+                  "text": "。通过定义它们来告诉 mongoose 你需要的数据结构和对应的数据类型是什么。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "file",
+          "file": "model/index.js",
+          "display": true,
+          "id": "hk4-fHaP3y",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "我们来创建 "
+                    },
+                    {
+                      "code": true,
+                      "text": "model/index.js"
+                    },
+                    {
+                      "text": " 文件编写我们的 "
+                    },
+                    {
+                      "code": true,
+                      "text": "Schema"
+                    },
+                    {
+                      "text": " 。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "model/index.js",
+              "commit": "02de67f",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "code": true,
+                      "text": "Schema"
+                    },
+                    {
+                      "text": " 接收一个 JavaScript 对象来描述我们需要的数据结构和对应的数据类型，除了我们熟知的像 "
+                    },
+                    {
+                      "code": true,
+                      "text": "String"
+                    },
+                    {
+                      "text": "、"
+                    },
+                    {
+                      "code": true,
+                      "text": "Number"
+                    },
+                    {
+                      "text": " 等数据类型外，"
+                    },
+                    {
+                      "code": true,
+                      "text": "ObjectId"
+                    },
+                    {
+                      "text": " 是一个特殊的数据类型，我们用它来定义我们的单个 MongoDB 文档的主键，用于标志存储数据的唯一性。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "我们还可以看到，在我们的 "
+                    },
+                    {
+                      "code": true,
+                      "text": "productSchema"
+                    },
+                    {
+                      "text": " 中，"
+                    },
+                    {
+                      "code": true,
+                      "text": "manufacturer"
+                    },
+                    {
+                      "text": " 数据结构我们定义了一个 "
+                    },
+                    {
+                      "code": true,
+                      "text": "ref"
+                    },
+                    {
+                      "text": " 属性，这是 MongoDB 为我们提供的类似关系数据库的外键功能，允许我们创建一对多的数据文档，所以 "
+                    },
+                    {
+                      "code": true,
+                      "text": "productSchema"
+                    },
+                    {
+                      "text": " 的 "
+                    },
+                    {
+                      "code": true,
+                      "text": "manufacturer"
+                    },
+                    {
+                      "text": " 属性对应着的数据类型为一条 "
+                    },
+                    {
+                      "code": true,
+                      "text": "Manufacturer"
+                    },
+                    {
+                      "text": " 记录。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "接着我们通过 "
+                    },
+                    {
+                      "code": true,
+                      "text": "model"
+                    },
+                    {
+                      "text": " 来创建对于的数据模型，然后导出我们创建好的数据模型。这里的 "
+                    },
+                    {
+                      "code": true,
+                      "text": "model"
+                    },
+                    {
+                      "text": " 就是经典的 MVC 设计模式中的 "
+                    },
+                    {
+                      "bold": true,
+                      "text": "Model"
+                    },
+                    {
+                      "text": "。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "step",
+      "commit": "95e9a4b",
+      "id": "PryzXucaLL",
+      "articleId": "cb08dc8",
+      "children": [
+        {
+          "type": "heading-two",
+          "commit": "95e9a4b",
+          "id": "V1HScmgdEi",
+          "fixed": true,
+          "children": [
+            {
+              "text": "完成 API 路由"
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "路由是 Express 的关键组成部分，也是客户端与服务器进行交互的入口，在 Express 路由中接受两个参数：Request 和 Response，一个用来获取客户端的请求，一个用来发送给客户端服务器的响应。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "file",
+          "file": ".gitignore",
+          "id": "7jpB6641qS",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": ".gitignore",
+              "commit": "95e9a4b",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "file",
+          "file": "app.js",
+          "display": true,
+          "id": "910Phocjl9",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "打开 "
+                    },
+                    {
+                      "code": true,
+                      "text": "app.js"
+                    },
+                    {
+                      "text": " 文件，加入如下代码："
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "app.js",
+              "commit": "95e9a4b",
+              "hiddenLines": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32,
+                33,
+                34,
+                35,
+                36,
+                37,
+                38,
+                39,
+                40,
+                41,
+                49,
+                50,
+                51,
+                52,
+                53,
+                54,
+                55,
+                56,
+                57,
+                58,
+                59,
+                60,
+                61,
+                62,
+                63,
+                64,
+                65
+              ],
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "可以看到，我们导入了 "
+                    },
+                    {
+                      "code": true,
+                      "text": "api"
+                    },
+                    {
+                      "text": " 路由，并定义了访问路径 "
+                    },
+                    {
+                      "code": true,
+                      "text": "/api/v1"
+                    },
+                    {
+                      "text": "。所有访问 "
+                    },
+                    {
+                      "code": true,
+                      "text": "/api/v1"
+                    },
+                    {
+                      "text": " 及其子路径如 "
+                    },
+                    {
+                      "code": true,
+                      "text": "/api/v1/xxx"
+                    },
+                    {
+                      "text": " 都会激活 "
+                    },
+                    {
+                      "code": true,
+                      "text": "api"
+                    },
+                    {
+                      "text": " 处理函数，在经典的 MVC 设计模式中，"
+                    },
+                    {
+                      "code": true,
+                      "text": "api"
+                    },
+                    {
+                      "text": "  也被成为 "
+                    },
+                    {
+                      "bold": true,
+                      "text": "Controllers"
+                    },
+                    {
+                      "text": " 。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "file",
+          "file": "routes/api/index.js",
+          "display": true,
+          "id": "GfVr2nKGTe",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "接着我们编写 "
+                    },
+                    {
+                      "code": true,
+                      "text": "api"
+                    },
+                    {
+                      "text": " Controllers，在这里面定义操作商品和制造商的路由接口，这里我们将采用经典的 "
+                    },
+                    {
+                      "link": true,
+                      "url": "http://www.ruanyifeng.com/blog/2018/10/restful-api-best-practices.html",
+                      "text": "RESTful API "
+                    },
+                    {
+                      "text": "来编写我们的路由接口："
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "routes/api/index.js",
+              "commit": "95e9a4b",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "可以看到，我们将 "
+                    },
+                    {
+                      "code": true,
+                      "text": "index"
+                    },
+                    {
+                      "text": " Controller 里面导入了我们的 "
+                    },
+                    {
+                      "code": true,
+                      "text": "productController"
+                    },
+                    {
+                      "text": " 和 "
+                    },
+                    {
+                      "code": true,
+                      "text": "manufacturerController"
+                    },
+                    {
+                      "text": " 。然后定义了一系列路由。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "这里操作 "
+                    },
+                    {
+                      "code": true,
+                      "text": "manufacturer"
+                    },
+                    {
+                      "text": " 的前五个路由的功能如下："
+                    }
+                  ]
+                },
+                {
+                  "type": "bulleted-list",
+                  "children": [
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "code": true,
+                          "text": "GET /manufacturers"
+                        },
+                        {
+                          "text": " 获取所以的制造商（manufacturers）"
+                        }
+                      ],
+                      "parent": "bulleted-list",
+                      "level": 0
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "code": true,
+                          "text": "GET /manufacturers/:id"
+                        },
+                        {
+                          "text": " 获取单个制造商，这里 "
+                        },
+                        {
+                          "code": true,
+                          "text": ":id"
+                        },
+                        {
+                          "text": " 代表动态路由，用于匹配任意字符串："
+                        },
+                        {
+                          "code": true,
+                          "text": "/manufacturers/<any-string>"
+                        },
+                        {
+                          "text": "。"
+                        }
+                      ],
+                      "parent": "bulleted-list",
+                      "level": 0
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "code": true,
+                          "text": "POST /manufacturers"
+                        },
+                        {
+                          "text": " 用户创建单个制造商"
+                        }
+                      ],
+                      "parent": "bulleted-list",
+                      "level": 0
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "code": true,
+                          "text": "PUT /manufacturers/:id"
+                        },
+                        {
+                          "text": " 用于修改单个制造商"
+                        }
+                      ],
+                      "parent": "bulleted-list",
+                      "level": 0
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "code": true,
+                          "text": "DELETE /manufacturers/:id"
+                        },
+                        {
+                          "text": " 用于删除单个制造商"
+                        }
+                      ],
+                      "parent": "bulleted-list",
+                      "level": 0
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "对应的 "
+                    },
+                    {
+                      "code": true,
+                      "text": "product"
+                    },
+                    {
+                      "text": " 的五个路由功能如下："
+                    }
+                  ]
+                },
+                {
+                  "type": "bulleted-list",
+                  "children": [
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "code": true,
+                          "text": "GET /products"
+                        },
+                        {
+                          "text": " 获取所以的产商品（products）"
+                        }
+                      ],
+                      "parent": "bulleted-list",
+                      "level": 0
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "code": true,
+                          "text": "GET /products/:id"
+                        },
+                        {
+                          "text": " 获取单个商品，这里 "
+                        },
+                        {
+                          "code": true,
+                          "text": ":id"
+                        },
+                        {
+                          "text": " 代表动态路由，用于匹配任意字符串："
+                        },
+                        {
+                          "code": true,
+                          "text": "/products/<any-string>"
+                        },
+                        {
+                          "text": "。"
+                        }
+                      ],
+                      "parent": "bulleted-list",
+                      "level": 0
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "code": true,
+                          "text": "POST /products"
+                        },
+                        {
+                          "text": " 用户创建单个商品"
+                        }
+                      ],
+                      "parent": "bulleted-list",
+                      "level": 0
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "code": true,
+                          "text": "PUT /products/:id"
+                        },
+                        {
+                          "text": " 用于修改单个商品"
+                        }
+                      ],
+                      "parent": "bulleted-list",
+                      "level": 0
+                    },
+                    {
+                      "type": "list-item",
+                      "children": [
+                        {
+                          "code": true,
+                          "text": "DELETE /products/:id"
+                        },
+                        {
+                          "text": " 用于删除单个商品"
+                        }
+                      ],
+                      "parent": "bulleted-list",
+                      "level": 0
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "最后我们导出我们的路由。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "file",
+          "file": "controllers/manufacturer.js",
+          "display": true,
+          "id": "7o064ZxmP0",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "接下来我们来看一看具体的 "
+                    },
+                    {
+                      "code": true,
+                      "text": "manufacturer"
+                    },
+                    {
+                      "text": " Controller。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "controllers/manufacturer.js",
+              "commit": "95e9a4b",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "可以看到我们定义了一个 "
+                    },
+                    {
+                      "code": true,
+                      "text": "manufacturerController"
+                    },
+                    {
+                      "text": " 对象，用来组织一系列对 "
+                    },
+                    {
+                      "code": true,
+                      "text": "manufacturer"
+                    },
+                    {
+                      "text": " 进行增删改查的操作。"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "我们在开头导入了我们之前定义的 "
+                    },
+                    {
+                      "code": true,
+                      "text": "ManufacturerModel"
+                    },
+                    {
+                      "text": "，这是 Mongoose 为我们提供的操作数据库的接口，我们通过定义在 Model 上的一系列如 find、findOne、updateOne、deleteOne 执行我们对数据的增删改成操作。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "file",
+          "file": "controllers/product.js",
+          "display": true,
+          "id": "G9PVLPHXts",
+          "children": [
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": "最后是我们的 "
+                    },
+                    {
+                      "code": true,
+                      "text": "product"
+                    },
+                    {
+                      "text": " Controller ，它内部的操作和我们上面讲到的 "
+                    },
+                    {
+                      "code": true,
+                      "text": "manufacturer"
+                    },
+                    {
+                      "text": " Controller 基本一致。"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "diff-block",
+              "file": "controllers/product.js",
+              "commit": "95e9a4b",
+              "hiddenLines": [],
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "explain",
+              "fixed": true,
+              "children": [
+                {
+                  "type": "paragraph",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "explain",
+          "fixed": true,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "编写完上面的代码并保存，打开终端输入 "
+                },
+                {
+                  "code": true,
+                  "text": "npm start"
+                },
+                {
+                  "text": " 来开启我们的服务器。"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "因为我们的服务器在开启时要连接 MongoDB 数据库，所以要确保本地的 MongoDB 数据库已经开启，我们可以通过如下命令来开启："
+                }
+              ]
+            },
+            {
+              "type": "code-block",
+              "lang": "Bash",
+              "children": [
+                {
+                  "type": "code-line",
+                  "children": [
+                    {
+                      "text": "$ mongod"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "好了，现在我们的 API 服务器就搭建完成了，现在我们通过 API 测试工具 "
+                },
+                {
+                  "link": true,
+                  "url": "https://www.getpostman.com/",
+                  "text": "POSTman"
+                },
+                {
+                  "text": " 来测试一下我们 API 是否成功。"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "测试 "
+                },
+                {
+                  "code": true,
+                  "text": "GET /api/v1/manufacturers"
+                },
+                {
+                  "text": "："
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "image",
+                  "url": ".tuture/assets/89b9a7511314e56444db9f04e1fc8aa6",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "测试 "
+                },
+                {
+                  "code": true,
+                  "text": "POST /api/v1/manufacturers"
+                },
+                {
+                  "text": "：我们添加手机制造商 "
+                },
+                {
+                  "code": true,
+                  "text": "\"一加\""
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "image",
+                  "url": ".tuture/assets/b739bcedeac40735ce6cb7e96437d7be",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "测试 "
+                },
+                {
+                  "code": true,
+                  "text": "PUT /api/v1/manufacturers/:id"
+                },
+                {
+                  "text": "：这里我们把 "
+                },
+                {
+                  "code": true,
+                  "text": "\"一加\""
+                },
+                {
+                  "text": " 改成 "
+                },
+                {
+                  "code": true,
+                  "text": "\"One Plus\""
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "image",
+                  "url": ".tuture/assets/1b0f5b9135b8a0b95381157cef9df74d",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "image",
+                  "url": ".tuture/assets/9ece79248ed36c94cfaa73d7fcac0fb1",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "测试 "
+                },
+                {
+                  "code": true,
+                  "text": "DELETE /api/v1/manufacturers/:id"
+                },
+                {
+                  "text": "：我们把刚刚添加的 "
+                },
+                {
+                  "code": true,
+                  "text": "\"一加\""
+                },
+                {
+                  "text": " 删掉"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "image",
+                  "url": ".tuture/assets/14335c49c2896d7b6c9ed4e218aebfff",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "image",
+                  "url": ".tuture/assets/3c3a095b9887842a59c29507e366ce53",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "最后测试添加商品 "
+                },
+                {
+                  "code": true,
+                  "text": "product"
+                },
+                {
+                  "text": "，"
+                },
+                {
+                  "code": true,
+                  "text": "POST /api/v1/products"
+                },
+                {
+                  "text": "：这里我们在定义 "
+                },
+                {
+                  "code": true,
+                  "text": "product"
+                },
+                {
+                  "text": " 的数据属性时，加入了 "
+                },
+                {
+                  "code": true,
+                  "text": "Manufacturer"
+                },
+                {
+                  "text": " 作为外键，所以创建的时候对应的 "
+                },
+                {
+                  "code": true,
+                  "text": "manufacturer"
+                },
+                {
+                  "text": " 属性要为某个 "
+                },
+                {
+                  "code": true,
+                  "text": "Manufacturer"
+                },
+                {
+                  "text": " 的 "
+                },
+                {
+                  "code": true,
+                  "text": "ObjectId"
+                },
+                {
+                  "text": "，比如我们这里添加小米的新产品 "
+                },
+                {
+                  "code": true,
+                  "text": "Mix Alpha"
+                },
+                {
+                  "text": " ："
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "image",
+                  "url": ".tuture/assets/c27e38b5de01eb2cc113d718fd41608c",
+                  "children": [
+                    {
+                      "text": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "可以看到我们添加了 "
+                },
+                {
+                  "code": true,
+                  "text": "manufacturer"
+                },
+                {
+                  "text": " 为 "
+                },
+                {
+                  "code": true,
+                  "text": "5da72eaac6ccea32f823c247"
+                },
+                {
+                  "text": " 的小米制造商的新手机 "
+                },
+                {
+                  "code": true,
+                  "text": "\"Mix Alpha\""
+                },
+                {
+                  "text": "。"
+                }
+              ]
+            },
+            {
+              "type": "heading-three",
+              "children": [
+                {
+                  "text": "小结"
+                }
+              ],
+              "id": "2K4g7tuQ9i"
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "自此，我们的 API 服务器就搭建完成了，在这篇教程里面我们学到了如下知识："
+                }
+              ]
+            },
+            {
+              "type": "bulleted-list",
+              "children": [
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": "了解 Express 的路由以及如何用 mongoose 连接 MongoDB 数据库"
+                    }
+                  ],
+                  "parent": "bulleted-list",
+                  "level": 0
+                },
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": "编写路由、Model 和 Controllers"
+                    }
+                  ],
+                  "parent": "bulleted-list",
+                  "level": 0
+                },
+                {
+                  "type": "list-item",
+                  "children": [
+                    {
+                      "text": "使用 POSTman 来测试我们编写的 API"
+                    }
+                  ],
+                  "parent": "bulleted-list",
+                  "level": 0
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "text": "相信通过本篇教程的学习，你对使用 Node 和 Express 编写 API 后端服务器有了一个基本的了解，现在我们了解了 Vue 基础知识，了解了如何搭建后端服务器，接下来我们将考虑如何使用 Vue 构建大型应用，下一篇教程我们再见！"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
