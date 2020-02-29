@@ -4,30 +4,17 @@
   "id": "cb08dc8",
   "cover": ".tuture/assets/express2.png",
   "created": "2019-10-21T00:00:00.509Z",
-  "topics": [
-    "Express",
-    "MongoDB"
-  ],
-  "categories": [
-    "后端",
-    "Node.js",
-    "入门"
-  ],
+  "github": "https://github.com/pftom/vue-online-shop-backend",
+  "topics": ["Express", "MongoDB"],
+  "categories": ["后端", "Node.js", "入门"],
   "articles": [
     {
       "name": "从零到部署：用 Vue 和 Express 实现迷你全栈电商应用（二）",
       "description": "这是本教程的第二个部分，使用 Node.js 的 Express 路由框架来编写我们迷你淘宝的 API 后台部分，在这个教程中，你将学到一个基础的 Web 后台 API 应用如何搭建，包括中间件、路由等，如何通过 Node.js 数据库接口包操作 MongoDB 数据库，并且通过 Postman 来测试我们写好的 API。",
       "id": "cb08dc8",
       "created": "2019-10-21T00:00:00.509Z",
-      "topics": [
-        "Express",
-        "MongoDB"
-      ],
-      "categories": [
-        "后端",
-        "Node.js",
-        "入门"
-      ],
+      "topics": ["Express", "MongoDB"],
+      "categories": ["后端", "Node.js", "入门"],
       "cover": ".tuture/assets/express2.png"
     }
   ],
@@ -1328,19 +1315,7 @@
               "type": "diff-block",
               "file": "package.json",
               "commit": "e5edda0",
-              "hiddenLines": [
-                0,
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-                9,
-                17
-              ],
+              "hiddenLines": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17],
               "children": [
                 {
                   "type": "paragraph",
