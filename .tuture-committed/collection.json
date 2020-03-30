@@ -3013,5 +3013,13 @@
     }
   ],
   "version": "v1",
-  "remotes": []
+  "remotes": [
+    {
+      "name": "origin",
+      "refs": {
+        "fetch": "git@github.com:tuture-dev/vue-online-shop-backend.git",
+        "push": "git@github.com:tuture-dev/vue-online-shop-backend.git"
+      }
+    }
+  ]
 }
