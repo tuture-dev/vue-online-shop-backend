@@ -5,39 +5,25 @@
   "cover": ".tuture/assets/express2.png",
   "created": "2019-10-21T00:00:00.509Z",
   "github": "https://github.com/pftom/vue-online-shop-backend",
-  "topics": [
-    "Express",
-    "MongoDB"
-  ],
-  "categories": [
-    "后端",
-    "Node.js",
-    "入门"
-  ],
+  "topics": ["Express", "MongoDB"],
+  "categories": ["前端", "Vue", "入门"],
   "articles": [
     {
       "name": "从零到部署：用 Vue 和 Express 实现迷你全栈电商应用（二）",
       "description": "这是本教程的第二个部分，使用 Node.js 的 Express 路由框架来编写我们迷你淘宝的 API 后台部分，在这个教程中，你将学到一个基础的 Web 后台 API 应用如何搭建，包括中间件、路由等，如何通过 Node.js 数据库接口包操作 MongoDB 数据库，并且通过 Postman 来测试我们写好的 API。",
       "id": "cb08dc8",
       "created": "2019-10-21T00:00:00.509Z",
-      "topics": [
-        "Express",
-        "MongoDB"
-      ],
-      "categories": [
-        "后端",
-        "Node.js",
-        "入门"
-      ],
+      "topics": ["Express", "MongoDB"],
+      "categories": ["前端", "Vue", "入门"],
       "cover": ".tuture/assets/express2.png"
     }
   ],
   "steps": [
     {
-      "type": "step",
       "commit": "7c749c5",
       "id": "lbPtSPaf",
       "articleId": "cb08dc8",
+      "type": "step",
       "children": [
         {
           "type": "heading-two",
@@ -252,7 +238,7 @@
                   "type": "code-line",
                   "children": [
                     {
-                      "text": "express vue-online-shop-backend"
+                      "text": "express --view=ejs vue-online-shop-backend"
                     }
                   ]
                 }
@@ -325,7 +311,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "flag": "step_start"
         },
         {
           "type": "file",
@@ -379,10 +366,10 @@
           ]
         },
         {
-          "type": "file",
           "file": "app.js",
           "display": true,
-          "id": "ek1xsVk7Y",
+          "commit": "7c749c5",
+          "type": "file",
           "children": [
             {
               "type": "explain",
@@ -526,7 +513,8 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "flag": "file_start"
             },
             {
               "type": "diff-block",
@@ -605,7 +593,8 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "flag": "file_end"
             }
           ]
         },
@@ -817,10 +806,10 @@
           ]
         },
         {
-          "type": "file",
           "file": "routes/index.js",
           "display": true,
-          "id": "5o8WVoMfe",
+          "commit": "7c749c5",
+          "type": "file",
           "children": [
             {
               "type": "explain",
@@ -841,7 +830,8 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "flag": "file_start"
             },
             {
               "type": "diff-block",
@@ -921,7 +911,8 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "flag": "file_end"
             }
           ]
         },
@@ -1172,15 +1163,16 @@
                 }
               ]
             }
-          ]
+          ],
+          "flag": "step_end"
         }
       ]
     },
     {
-      "type": "step",
       "commit": "e5edda0",
       "id": "yOHX2kX-l",
       "articleId": "cb08dc8",
+      "type": "step",
       "children": [
         {
           "type": "heading-two",
@@ -1303,7 +1295,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "flag": "step_start"
         },
         {
           "type": "file",
@@ -1330,17 +1323,8 @@
               "file": "package.json",
               "commit": "e5edda0",
               "hiddenLines": [
-                0,
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-                9,
-                17
+                [0, 9],
+                [17, 17]
               ],
               "children": [
                 {
@@ -1370,10 +1354,10 @@
           ]
         },
         {
-          "type": "file",
           "file": "app.js",
           "display": true,
-          "id": "W6v-S49PWM",
+          "commit": "e5edda0",
+          "type": "file",
           "children": [
             {
               "type": "explain",
@@ -1408,44 +1392,16 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "flag": "file_start"
             },
             {
               "type": "diff-block",
               "file": "app.js",
               "commit": "e5edda0",
               "hiddenLines": [
-                10,
-                11,
-                12,
-                13,
-                25,
-                26,
-                27,
-                28,
-                29,
-                30,
-                31,
-                32,
-                33,
-                34,
-                35,
-                36,
-                37,
-                38,
-                39,
-                40,
-                41,
-                42,
-                43,
-                44,
-                45,
-                46,
-                47,
-                48,
-                49,
-                50,
-                51
+                [10, 13],
+                [25, 51]
               ],
               "children": [
                 {
@@ -1470,7 +1426,8 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "flag": "file_end"
             }
           ]
         },
@@ -1498,403 +1455,15 @@
               "file": "package-lock.json",
               "commit": "e5edda0",
               "hiddenLines": [
-                0,
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-                9,
-                10,
-                11,
-                12,
-                13,
-                14,
-                15,
-                16,
-                17,
-                18,
-                19,
-                20,
-                21,
-                22,
-                23,
-                24,
-                36,
-                37,
-                38,
-                39,
-                40,
-                41,
-                42,
-                43,
-                44,
-                45,
-                46,
-                58,
-                59,
-                60,
-                61,
-                62,
-                63,
-                64,
-                65,
-                66,
-                67,
-                68,
-                69,
-                70,
-                71,
-                72,
-                73,
-                74,
-                75,
-                76,
-                77,
-                78,
-                79,
-                80,
-                81,
-                82,
-                83,
-                84,
-                85,
-                86,
-                87,
-                88,
-                89,
-                90,
-                91,
-                92,
-                93,
-                94,
-                95,
-                96,
-                97,
-                98,
-                99,
-                100,
-                101,
-                102,
-                103,
-                104,
-                105,
-                106,
-                107,
-                108,
-                109,
-                110,
-                111,
-                112,
-                113,
-                114,
-                115,
-                116,
-                117,
-                118,
-                119,
-                120,
-                121,
-                122,
-                123,
-                124,
-                125,
-                126,
-                127,
-                128,
-                129,
-                130,
-                131,
-                132,
-                133,
-                134,
-                135,
-                136,
-                137,
-                138,
-                139,
-                140,
-                141,
-                142,
-                143,
-                144,
-                145,
-                146,
-                147,
-                148,
-                149,
-                150,
-                151,
-                152,
-                153,
-                154,
-                155,
-                156,
-                157,
-                158,
-                159,
-                160,
-                161,
-                162,
-                163,
-                164,
-                165,
-                166,
-                167,
-                168,
-                169,
-                170,
-                171,
-                172,
-                173,
-                174,
-                175,
-                176,
-                177,
-                178,
-                179,
-                180,
-                181,
-                182,
-                183,
-                184,
-                185,
-                186,
-                187,
-                188,
-                189,
-                190,
-                191,
-                192,
-                193,
-                194,
-                195,
-                196,
-                197,
-                198,
-                199,
-                200,
-                201,
-                202,
-                203,
-                204,
-                205,
-                206,
-                207,
-                208,
-                209,
-                210,
-                211,
-                212,
-                213,
-                214,
-                215,
-                216,
-                217,
-                218,
-                219,
-                220,
-                221,
-                222,
-                223,
-                224,
-                225,
-                226,
-                227,
-                228,
-                229,
-                230,
-                231,
-                232,
-                233,
-                234,
-                235,
-                236,
-                237,
-                238,
-                239,
-                240,
-                252,
-                253,
-                254,
-                255,
-                256,
-                257,
-                258,
-                259,
-                260,
-                261,
-                262,
-                263,
-                264,
-                265,
-                266,
-                267,
-                268,
-                269,
-                270,
-                271,
-                272,
-                273,
-                274,
-                275,
-                276,
-                277,
-                278,
-                325,
-                326,
-                327,
-                328,
-                329,
-                330,
-                364,
-                365,
-                366,
-                367,
-                368,
-                369,
-                370,
-                371,
-                372,
-                373,
-                374,
-                375,
-                376,
-                377,
-                378,
-                379,
-                380,
-                381,
-                382,
-                383,
-                384,
-                385,
-                386,
-                387,
-                388,
-                389,
-                390,
-                391,
-                392,
-                393,
-                394,
-                395,
-                396,
-                397,
-                398,
-                399,
-                400,
-                401,
-                402,
-                403,
-                404,
-                405,
-                406,
-                407,
-                408,
-                409,
-                410,
-                411,
-                412,
-                413,
-                414,
-                415,
-                416,
-                417,
-                418,
-                419,
-                420,
-                446,
-                447,
-                448,
-                449,
-                461,
-                462,
-                463,
-                464,
-                465,
-                466,
-                467,
-                468,
-                469,
-                470,
-                471,
-                472,
-                473,
-                474,
-                475,
-                476,
-                477,
-                478,
-                479,
-                480,
-                481,
-                482,
-                483,
-                484,
-                485,
-                486,
-                487,
-                488,
-                489,
-                490,
-                491,
-                492,
-                493,
-                494,
-                495,
-                496,
-                497,
-                498,
-                499,
-                500,
-                501,
-                502,
-                503,
-                504,
-                505,
-                506,
-                507,
-                508,
-                509,
-                510,
-                511,
-                512,
-                513,
-                514,
-                515,
-                516,
-                533,
-                534,
-                535,
-                536,
-                537,
-                538,
-                539,
-                540,
-                541,
-                542,
-                543,
-                544,
-                545,
-                546,
-                547,
-                548,
-                549,
-                550,
-                551,
-                552,
-                553,
-                554,
-                555,
-                556,
-                557,
-                558,
-                559,
-                560
+                [0, 24],
+                [36, 46],
+                [58, 240],
+                [252, 278],
+                [325, 330],
+                [364, 420],
+                [446, 449],
+                [461, 516],
+                [533, 560]
               ],
               "children": [
                 {
@@ -1942,15 +1511,16 @@
                 }
               ]
             }
-          ]
+          ],
+          "flag": "step_end"
         }
       ]
     },
     {
-      "type": "step",
       "commit": "2014dde",
       "id": "vvGTVmAKVO",
       "articleId": "cb08dc8",
+      "type": "step",
       "children": [
         {
           "type": "heading-two",
@@ -1983,13 +1553,14 @@
                 }
               ]
             }
-          ]
+          ],
+          "flag": "step_start"
         },
         {
-          "type": "file",
           "file": "app.js",
           "display": true,
-          "id": "gFprH4DwsW",
+          "commit": "2014dde",
+          "type": "file",
           "children": [
             {
               "type": "explain",
@@ -2010,55 +1581,16 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "flag": "file_start"
             },
             {
               "type": "diff-block",
               "file": "app.js",
               "commit": "2014dde",
               "hiddenLines": [
-                0,
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-                9,
-                10,
-                11,
-                12,
-                13,
-                37,
-                38,
-                39,
-                40,
-                41,
-                42,
-                43,
-                44,
-                45,
-                46,
-                47,
-                48,
-                49,
-                50,
-                51,
-                52,
-                53,
-                54,
-                55,
-                56,
-                57,
-                58,
-                59,
-                60,
-                61,
-                62,
-                63,
-                64
+                [0, 13],
+                [37, 64]
               ],
               "children": [
                 {
@@ -2098,7 +1630,8 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "flag": "file_end"
             }
           ]
         },
@@ -2114,15 +1647,16 @@
                 }
               ]
             }
-          ]
+          ],
+          "flag": "step_end"
         }
       ]
     },
     {
-      "type": "step",
       "commit": "02de67f",
       "id": "A-917Np7sE",
       "articleId": "cb08dc8",
+      "type": "step",
       "children": [
         {
           "type": "heading-two",
@@ -2161,13 +1695,14 @@
                 }
               ]
             }
-          ]
+          ],
+          "flag": "step_start"
         },
         {
-          "type": "file",
           "file": "model/index.js",
           "display": true,
-          "id": "hk4-fHaP3y",
+          "commit": "02de67f",
+          "type": "file",
           "children": [
             {
               "type": "explain",
@@ -2195,7 +1730,8 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "flag": "file_start"
             },
             {
               "type": "diff-block",
@@ -2329,7 +1865,8 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "flag": "file_end"
             }
           ]
         },
@@ -2345,15 +1882,16 @@
                 }
               ]
             }
-          ]
+          ],
+          "flag": "step_end"
         }
       ]
     },
     {
-      "type": "step",
       "commit": "95e9a4b",
       "id": "PryzXucaLL",
       "articleId": "cb08dc8",
+      "type": "step",
       "children": [
         {
           "type": "heading-two",
@@ -2378,7 +1916,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "flag": "step_start"
         },
         {
           "type": "file",
@@ -2432,10 +1971,10 @@
           ]
         },
         {
-          "type": "file",
           "file": "app.js",
           "display": true,
-          "id": "910Phocjl9",
+          "commit": "95e9a4b",
+          "type": "file",
           "children": [
             {
               "type": "explain",
@@ -2456,65 +1995,17 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "flag": "file_start"
             },
             {
               "type": "diff-block",
               "file": "app.js",
               "commit": "95e9a4b",
               "hiddenLines": [
-                0,
-                1,
-                2,
-                3,
-                4,
-                5,
-                13,
-                14,
-                15,
-                16,
-                17,
-                18,
-                19,
-                20,
-                21,
-                22,
-                23,
-                24,
-                25,
-                26,
-                27,
-                28,
-                29,
-                30,
-                31,
-                32,
-                33,
-                34,
-                35,
-                36,
-                37,
-                38,
-                39,
-                40,
-                41,
-                49,
-                50,
-                51,
-                52,
-                53,
-                54,
-                55,
-                56,
-                57,
-                58,
-                59,
-                60,
-                61,
-                62,
-                63,
-                64,
-                65
+                [0, 5],
+                [13, 41],
+                [49, 65]
               ],
               "children": [
                 {
@@ -2588,15 +2079,16 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "flag": "file_end"
             }
           ]
         },
         {
-          "type": "file",
           "file": "routes/api/index.js",
           "display": true,
-          "id": "GfVr2nKGTe",
+          "commit": "95e9a4b",
+          "type": "file",
           "children": [
             {
               "type": "explain",
@@ -2625,7 +2117,8 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "flag": "file_start"
             },
             {
               "type": "diff-block",
@@ -2892,15 +2385,16 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "flag": "file_end"
             }
           ]
         },
         {
-          "type": "file",
           "file": "controllers/manufacturer.js",
           "display": true,
-          "id": "7o064ZxmP0",
+          "commit": "95e9a4b",
+          "type": "file",
           "children": [
             {
               "type": "explain",
@@ -2921,7 +2415,8 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "flag": "file_start"
             },
             {
               "type": "diff-block",
@@ -2980,15 +2475,16 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "flag": "file_end"
             }
           ]
         },
         {
-          "type": "file",
           "file": "controllers/product.js",
           "display": true,
-          "id": "G9PVLPHXts",
+          "commit": "95e9a4b",
+          "type": "file",
           "children": [
             {
               "type": "explain",
@@ -3016,7 +2512,8 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "flag": "file_start"
             },
             {
               "type": "diff-block",
@@ -3046,7 +2543,8 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "flag": "file_end"
             }
           ]
         },
@@ -3440,9 +2938,20 @@
                 }
               ]
             }
-          ]
+          ],
+          "flag": "step_end"
         }
       ]
+    }
+  ],
+  "version": "v1",
+  "remotes": [
+    {
+      "name": "origin",
+      "refs": {
+        "fetch": "git@github.com:tuture-dev/vue-online-shop-backend.git",
+        "push": "git@github.com:tuture-dev/vue-online-shop-backend.git"
+      }
     }
   ]
 }
